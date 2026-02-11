@@ -1,8 +1,8 @@
-The snap daemon, `snapd`, together with all the other binaries defined in this repository, manage the installation, lifecycle and updates of software packaged as a *snap* across many Linux distributions.
+The snap daemon, `snapd`, together with all the other binaries defined in this repository, manages the installation, lifecycle and updates of software packaged as a *snap* across many Linux distributions.
 
 A snap package is a self-contained read-only SquashFS file carrying application-specific content alongside metadata, chiefly in `meta/snap.yaml`. When installing a snap, snapd ensures that the SquashFS content will be available by mounting it.
 
-Alongside individual snaps, snapd can also orchestrate the lifecycle of an entire system when all the components are snaps. This is the principle behind [Ubuntu Core](https://ubuntu.com/core) systems. There the root filesystem is a *base* snap mounted in combination with writable space, alongside a kernel installed from its own snap and a *gadget* snap that defines the device.
+Alongside individual snaps, snapd can also orchestrate the lifecycle of an entire system when all the components are snaps. This is the principle behind [Ubuntu Core](https://ubuntu.com/core) systems. There the root filesystem is a *base* snap mounted in combination with writable space, alongside a kernel installed from its own snap, and a *gadget* snap that defines the device.
 
 For security, snap applications and services are executed in a sandbox by default. Access to system resources, and interactions with other snaps, are mediated via so called *interfaces*. Each interface encapsulates an access policy that's implemented using mount namespaces, AppArmor profiles and other native Linux security features.
 
@@ -88,7 +88,7 @@ Snap metadata, as used throughout snapd and some basic operation helpers, are de
 
 ### InterfaceManager
 
-The [`overlord/ifacestate.InterfaceManager`](https://pkg.go.dev/github.com/snapcore/snapd/overlord/ifacestate#InterfaceManager) using the [`interfaces`](https://github.com/canonical/snapd/tree/master/interfaces) package is responsible for keeping the per-snap security profiles up-to-date used to sandbox them. It ensures that interface connections (persistently modeled by [`ifacestate.ConnectionState`](https://pkg.go.dev/github.com/snapcore/snapd/overlord/ifacestate#ConnectionState)) are correctly reflected in the profiles. The [`interfaces.Repository`](https://pkg.go.dev/github.com/snapcore/snapd/interfaces#Repository) is the main abstraction to manage those connections, while [`interfaces/builtin`](https://github.com/canonical/snapd/tree/master/interfaces/builtin) carries each interface logic implementation.
+The [`overlord/ifacestate.InterfaceManager`](https://pkg.go.dev/github.com/snapcore/snapd/overlord/ifacestate#InterfaceManager) using the [`interfaces`](https://github.com/canonical/snapd/tree/master/interfaces) package is responsible for keeping up to date the per-snap security profiles used to sandbox them. It ensures that interface connections (persistently modeled by [`ifacestate.ConnectionState`](https://pkg.go.dev/github.com/snapcore/snapd/overlord/ifacestate#ConnectionState)) are correctly reflected in the profiles. The [`interfaces.Repository`](https://pkg.go.dev/github.com/snapcore/snapd/interfaces#Repository) is the main abstraction to manage those connections, while [`interfaces/builtin`](https://github.com/canonical/snapd/tree/master/interfaces/builtin) carries each interface logic implementation.
 
 Paradigmatic handlers for [`ifacestate`](https://github.com/canonical/snapd/tree/master/overlord/ifacestate) include `setup-profiles`, `auto-connect` and `connect`.
 
