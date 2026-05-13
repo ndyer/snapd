@@ -23,7 +23,6 @@ package secboot
 import (
 	"crypto/rand"
 	"encoding/json"
-	"errors"
 	"fmt"
 	"io"
 
@@ -31,6 +30,7 @@ import (
 	sb_scope "github.com/snapcore/secboot/bootscope"
 	sb_hooks "github.com/snapcore/secboot/hooks"
 
+	"github.com/snapcore/snapd/errdocs"
 	"github.com/snapcore/snapd/kernel/fde"
 	"github.com/snapcore/snapd/kernel/fde/optee"
 	"github.com/snapcore/snapd/logger"
@@ -88,7 +88,7 @@ type KeyProtectorFactory interface {
 	ForKeyName(name string) KeyProtector
 }
 
-var ErrNoKeyProtector = errors.New("cannot find supported FDE key protector")
+var ErrNoKeyProtector = errdocs.Sentinel("cannot find supported FDE key protector", "no-fde-key-protector")
 
 type fdeKeyProtectorFactory struct {
 	runHook fde.RunSetupHookFunc

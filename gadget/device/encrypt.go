@@ -27,6 +27,7 @@ import (
 	"time"
 
 	"github.com/snapcore/snapd/dirs"
+	"github.com/snapcore/snapd/errdocs"
 	"github.com/snapcore/snapd/osutil"
 )
 
@@ -108,7 +109,7 @@ func PreinstallCheckResultUnder(deviceFDEDir string) string {
 }
 
 // ErrNoSealedKeys error if there are no sealed keys
-var ErrNoSealedKeys = errors.New("no sealed keys")
+var ErrNoSealedKeys = errdocs.Sentinel("no sealed keys", "no-sealed-keys")
 
 // SealingMethod represents the sealing method
 type SealingMethod string
@@ -250,6 +251,10 @@ type AuthQualityError struct {
 func (e *AuthQualityError) Error() string {
 	return e.err.Error()
 }
+
+// DocSlug returns the slug used to construct the docs URL on the
+// boot-failure screen for an auth-quality failure.
+func (e *AuthQualityError) DocSlug() string { return "auth-quality" }
 
 type AuthQuality struct {
 	// Entropy is the calculated entropy in bits for the passed passphrase

@@ -35,6 +35,7 @@ import (
 	"github.com/snapcore/snapd/boot"
 	"github.com/snapcore/snapd/client"
 	"github.com/snapcore/snapd/dirs"
+	"github.com/snapcore/snapd/errdocs"
 	"github.com/snapcore/snapd/gadget"
 	"github.com/snapcore/snapd/gadget/device"
 	"github.com/snapcore/snapd/i18n"
@@ -2568,7 +2569,7 @@ var recoverSystemActions = []SystemAction{
 	{Title: "Run normally", Mode: "run"},
 }
 
-var ErrNoSystems = errors.New("no systems seeds")
+var ErrNoSystems = errdocs.Sentinel("no systems seeds", "no-systems-seeded")
 
 // Systems list the available recovery/seeding systems. Returns the list of
 // systems, ErrNoSystems when no systems seeds were found or other error.

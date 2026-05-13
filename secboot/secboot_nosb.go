@@ -26,6 +26,7 @@ import (
 	"errors"
 	"io"
 
+	"github.com/snapcore/snapd/errdocs"
 	"github.com/snapcore/snapd/kernel/fde"
 	"github.com/snapcore/snapd/secboot/keys"
 )
@@ -40,7 +41,7 @@ type KeyProtector interface {
 	ProtectKey(rand io.Reader, cleartext, aad []byte) (ciphertext []byte, handle []byte, err error)
 }
 
-var ErrNoKeyProtector = errors.New("cannot find supported FDE key protector")
+var ErrNoKeyProtector = errdocs.Sentinel("cannot find supported FDE key protector", "no-fde-key-protector")
 
 func FDESetupHookKeyProtectorFactory(runHook fde.RunSetupHookFunc) KeyProtectorFactory {
 	return nil

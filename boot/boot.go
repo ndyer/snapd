@@ -24,6 +24,7 @@ import (
 	"fmt"
 
 	"github.com/snapcore/snapd/bootloader"
+	"github.com/snapcore/snapd/errdocs"
 	"github.com/snapcore/snapd/osutil"
 	"github.com/snapcore/snapd/snap"
 )
@@ -410,7 +411,7 @@ func MarkBootSuccessful(dev snap.Device) error {
 	return nil
 }
 
-var ErrUnsupportedSystemMode = errors.New("system mode is unsupported")
+var ErrUnsupportedSystemMode = errdocs.Sentinel("system mode is unsupported", "recovery-mode-unsupported")
 
 // SetRecoveryBootSystemAndMode configures the recovery bootloader to boot into
 // the given recovery system in a particular mode. Returns

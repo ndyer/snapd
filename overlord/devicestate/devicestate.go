@@ -36,6 +36,7 @@ import (
 	"github.com/snapcore/snapd/asserts/snapasserts"
 	"github.com/snapcore/snapd/boot"
 	"github.com/snapcore/snapd/dirs"
+	"github.com/snapcore/snapd/errdocs"
 	"github.com/snapcore/snapd/gadget"
 	"github.com/snapcore/snapd/gadget/device"
 	"github.com/snapcore/snapd/i18n"
@@ -1978,7 +1979,7 @@ type CreateRecoverySystemOptions struct {
 	Offline bool
 }
 
-var ErrNoRecoverySystem = errors.New("recovery system does not exist")
+var ErrNoRecoverySystem = errdocs.Sentinel("recovery system does not exist", "no-recovery-system")
 
 // RemoveRecoverySystem removes the recovery system with the given label. The
 // current recovery system cannot be removed.

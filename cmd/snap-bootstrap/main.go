@@ -25,9 +25,12 @@ import (
 
 	"github.com/jessevdk/go-flags"
 
+	"github.com/snapcore/snapd/errdocs"
 	"github.com/snapcore/snapd/logger"
 	"github.com/snapcore/snapd/secboot"
 )
+
+const docsBase = "https://documentation.ubuntu.com/core/"
 
 var (
 	shortHelp = "Bootstrap a Ubuntu Core system"
@@ -45,7 +48,7 @@ func main() {
 
 	err := run(os.Args[1:])
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "error: %s\n", err)
+		errdocs.PrintBootError(os.Stderr, docsBase, err)
 		os.Exit(1)
 	}
 }

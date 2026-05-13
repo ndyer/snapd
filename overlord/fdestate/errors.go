@@ -27,6 +27,10 @@ type KeyslotRefsNotFoundError struct {
 	KeyslotRefs []KeyslotRef
 }
 
+// DocSlug returns the slug used to construct the docs URL on the
+// boot-failure screen for a missing key slot.
+func (e *KeyslotRefsNotFoundError) DocSlug() string { return "keyslot-missing" }
+
 func (e *KeyslotRefsNotFoundError) Error() string {
 	switch len(e.KeyslotRefs) {
 	case 0:
@@ -77,6 +81,10 @@ type InvalidRecoveryKeyError struct {
 
 	Message string
 }
+
+// DocSlug returns the slug used to construct the docs URL on the
+// boot-failure screen for an invalid recovery key.
+func (e *InvalidRecoveryKeyError) DocSlug() string { return "recovery-key-invalid" }
 
 func (e *InvalidRecoveryKeyError) Error() string {
 	if e.Message != "" {
